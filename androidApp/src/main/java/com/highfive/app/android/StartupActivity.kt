@@ -34,7 +34,12 @@ class StartupActivity : AppCompatActivity() {
                 withTimeoutOrNull(15_000) {
                     try {
                         val response = HighFiveApplication.networkClient.refreshSession()
-                        response
+                        if (response != null) {
+                            HighFiveApplication.boosts = response
+                            true
+                        } else {
+                            false
+                        }
                     } catch (_: Exception) {
                         false
                     }

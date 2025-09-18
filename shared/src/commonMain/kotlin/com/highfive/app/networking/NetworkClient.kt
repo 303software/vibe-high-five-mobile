@@ -26,7 +26,7 @@ class NetworkClient {
         localStore.setString(REFRESH_TOKEN, "")
     }
 
-    suspend fun refreshSession(): Boolean {
+    suspend fun refreshSession(): List<Boost>? {
         val token = localStore.getString(REFRESH_TOKEN, "")
         if (token.isNotEmpty()) {
             try {
@@ -37,12 +37,14 @@ class NetworkClient {
             } catch (e: Exception) {
                 Logger.e(LOGGER_TAG, "Refresh session error: ", e)
                 localStore.setString(REFRESH_TOKEN, "")
-                return false
+                return null
             }
         } else {
-            return false
+            return null
         }
-        return true
+        return supabase.postgrest.from("boost").select(Columns.ALL){
+            order("created_at", Order.DESCENDING)
+        }.decodeList<Boost>()
     }
 
     suspend fun createAccount(email: String, password: String): List<Boost>? {
@@ -56,7 +58,9 @@ class NetworkClient {
             Logger.e(LOGGER_TAG, "Create account error: ", e)
             return null
         }
-        return supabase.postgrest.from("boost").select(Columns.ALL).decodeList<Boost>()
+        return supabase.postgrest.from("boost").select(Columns.ALL){
+            order("created_at", Order.DESCENDING)
+        }.decodeList<Boost>()
     }
 
     suspend fun login(email: String, password: String): List<Boost>? {
@@ -71,7 +75,9 @@ class NetworkClient {
             Logger.e(LOGGER_TAG, "Sign in error: ", e)
             return null
         }
-        val boosts = supabase.postgrest.from("boost").select(Columns.ALL).decodeList<Boost>()
+        val boosts = supabase.postgrest.from("boost").select(Columns.ALL){
+            order("created_at", Order.DESCENDING)
+        }.decodeList<Boost>()
         return boosts
     }
 

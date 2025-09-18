@@ -4,8 +4,10 @@ import android.app.Activity
 import android.app.Application
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import com.highfive.app.networking.Boost
 import com.highfive.app.networking.NetworkClient
 import com.highfive.app.storage.LocalStore
+import java.util.Collections.emptyList
 
 class HighFiveApplication  : Application() {
     override fun onCreate() {
@@ -44,5 +46,7 @@ class HighFiveApplication  : Application() {
         lateinit var instance: HighFiveApplication
         lateinit var localStore: LocalStore
         lateinit var networkClient: NetworkClient
+
+        var boosts: List<Boost> = emptyList()
     }
 }

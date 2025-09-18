@@ -31,8 +31,11 @@ class RootViewModel: ObservableObject {
     }
     
     func refreshSession() {
-        iOSApp.networkClient.refreshSession() { success, error in
-            if (success?.boolValue ?? false) {
+        iOSApp.networkClient.refreshSession() { boosts, error in
+            if (boosts != nil) {
+                DispatchQueue.main.async {
+                    self.boosts = boosts!
+                }
                 self.setStartupState(newState: .complete)
             } else {
                 self.setStartupState(newState: .login)

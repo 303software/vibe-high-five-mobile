@@ -391,7 +391,19 @@ __attribute__((swift_name("NetworkClient")))
  * @note This method converts instances of CancellationException to errors.
  * Other uncaught Kotlin exceptions are fatal.
 */
+- (void)addBoostBoost:(SharedBoost *)boost completionHandler:(void (^)(NSArray<SharedBoost *> * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("addBoost(boost:completionHandler:)")));
+
+/**
+ * @note This method converts instances of CancellationException to errors.
+ * Other uncaught Kotlin exceptions are fatal.
+*/
 - (void)createAccountEmail:(NSString *)email password:(NSString *)password completionHandler:(void (^)(NSArray<SharedBoost *> * _Nullable_result, NSError * _Nullable))completionHandler __attribute__((swift_name("createAccount(email:password:completionHandler:)")));
+
+/**
+ * @note This method converts instances of CancellationException to errors.
+ * Other uncaught Kotlin exceptions are fatal.
+*/
+- (void)getBoostsWithCompletionHandler:(void (^)(NSArray<SharedBoost *> * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("getBoosts(completionHandler:)")));
 
 /**
  * @note This method converts instances of CancellationException to errors.
@@ -409,7 +421,7 @@ __attribute__((swift_name("NetworkClient")))
  * @note This method converts instances of CancellationException to errors.
  * Other uncaught Kotlin exceptions are fatal.
 */
-- (void)refreshSessionWithCompletionHandler:(void (^)(SharedBoolean * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("refreshSession(completionHandler:)")));
+- (void)refreshSessionWithCompletionHandler:(void (^)(NSArray<SharedBoost *> * _Nullable_result, NSError * _Nullable))completionHandler __attribute__((swift_name("refreshSession(completionHandler:)")));
 @end
 
 __attribute__((objc_subclassing_restricted))

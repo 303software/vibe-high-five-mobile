@@ -78,5 +78,13 @@ dependencies {
             version { strictly("1.8.0") }
             because("Browser 1.9.0 requires AGP 8.9.1 and compileSdk 36+, we’re on AGP 8.7.3 / compileSdk 35.")
         }
+        implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3") {
+            version { strictly("1.7.3") }
+            because("Unknown.")
+        }
+        implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3") {
+            version { strictly("1.7.3") }
+            because("Unknown.")
+        }
     }
 }
