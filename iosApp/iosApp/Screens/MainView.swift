@@ -15,9 +15,9 @@ struct MainView: View {
                 ZStack {
                     switch navigationViewModel.currentScreen {
                     case .screen1:
-                        Screen1View()
+                        UsersView()
                     case .screen2:
-                        Screen2View()
+                        LeaderboardView()
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)

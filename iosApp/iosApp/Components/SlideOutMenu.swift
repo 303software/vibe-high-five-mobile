@@ -11,7 +11,7 @@ struct SlideOutMenu: View {
             VStack(alignment: .leading, spacing: 24) {
                 Button(action: onScreen1Tapped) {
                     HStack {
-                        Text("Screen 1")
+                        Text("Users")
                             .font(.body)
                             .foregroundColor(.primary)
                         Spacer()
@@ -23,7 +23,7 @@ struct SlideOutMenu: View {
                 
                 Button(action: onScreen2Tapped) {
                     HStack {
-                        Text("Screen 2")
+                        Text("Leaderboard")
                             .font(.body)
                             .foregroundColor(.primary)
                         Spacer()

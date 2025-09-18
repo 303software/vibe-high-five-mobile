@@ -1,10 +1,10 @@
 import SwiftUI
 
-struct Screen1View: View {
+struct UsersView: View {
     var body: some View {
         VStack {
             Spacer()
-            Text("Screen 1")
+            Text("Users")
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .foregroundColor(.primary)

@@ -56,9 +56,9 @@ class NavigationViewModel: ObservableObject {
     var screenTitle: String {
         switch currentScreen {
         case .screen1:
-            return "Screen 1"
+            return "Users"
         case .screen2:
-            return "Screen 2"
+            return "Leaderboard"
         }
     }
 }

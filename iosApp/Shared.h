@@ -219,9 +219,9 @@ __attribute__((swift_name("AuthTokenResponse.Companion")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Boost")))
 @interface SharedBoost : SharedBase
-- (instancetype)initWithId:(NSString *)id __attribute__((swift_name("init(id:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithId:(NSString * _Nullable)id receiver:(NSString *)receiver sender:(NSString *)sender type:(NSString *)type __attribute__((swift_name("init(id:receiver:sender:type:)"))) __attribute__((objc_designated_initializer));
 @property (class, readonly, getter=companion) SharedBoostCompanion *companion __attribute__((swift_name("companion")));
-- (SharedBoost *)doCopyId:(NSString *)id __attribute__((swift_name("doCopy(id:)")));
+- (SharedBoost *)doCopyId:(NSString * _Nullable)id receiver:(NSString *)receiver sender:(NSString *)sender type:(NSString *)type __attribute__((swift_name("doCopy(id:receiver:sender:type:)")));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
@@ -230,7 +230,25 @@ __attribute__((swift_name("Boost")))
  * @note annotations
  *   kotlinx.serialization.SerialName(value="id")
 */
-@property (readonly) NSString *id __attribute__((swift_name("id")));
+@property (readonly) NSString * _Nullable id __attribute__((swift_name("id")));
+
+/**
+ * @note annotations
+ *   kotlinx.serialization.SerialName(value="receiver")
+*/
+@property (readonly) NSString *receiver __attribute__((swift_name("receiver")));
+
+/**
+ * @note annotations
+ *   kotlinx.serialization.SerialName(value="sender")
+*/
+@property (readonly) NSString *sender __attribute__((swift_name("sender")));
+
+/**
+ * @note annotations
+ *   kotlinx.serialization.SerialName(value="type")
+*/
+@property (readonly) NSString *type __attribute__((swift_name("type")));
 @end
 
 __attribute__((objc_subclassing_restricted))
@@ -391,7 +409,7 @@ __attribute__((swift_name("NetworkClient")))
  * @note This method converts instances of CancellationException to errors.
  * Other uncaught Kotlin exceptions are fatal.
 */
-- (void)addBoostBoost:(SharedBoost *)boost completionHandler:(void (^)(NSArray<SharedBoost *> * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("addBoost(boost:completionHandler:)")));
+- (void)addBoostReceiverId:(NSString *)receiverId completionHandler:(void (^)(NSArray<SharedBoost *> * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("addBoost(receiverId:completionHandler:)")));
 
 /**
  * @note This method converts instances of CancellationException to errors.

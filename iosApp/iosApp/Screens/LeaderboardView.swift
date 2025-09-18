@@ -1,10 +1,10 @@
 import SwiftUI
 
-struct Screen2View: View {
+struct LeaderboardView: View {
     var body: some View {
         VStack {
             Spacer()
-            Text("Screen 2")
+            Text("Leaderboard")
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .foregroundColor(.primary)
