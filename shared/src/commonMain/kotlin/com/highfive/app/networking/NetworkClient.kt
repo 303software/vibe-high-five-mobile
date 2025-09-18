@@ -96,6 +96,33 @@ class NetworkClient {
         }.decodeList<Boost>()
     }
 
+    suspend fun getUsers(): List<User> {
+        // Get users from a custom users table or profiles table
+        // For now, we'll try to get distinct users from the boost table
+        try {
+            val boosts = supabase.postgrest.from("boost").select("receiver, sender") {
+                order("created_at", Order.DESCENDING)
+            }.decodeList<Map<String, String>>()
+            
+            // Extract unique user IDs and create mock user objects
+            val userIds = mutableSetOf<String>()
+            boosts.forEach { boost ->
+                boost["receiver"]?.let { userIds.add(it) }
+                boost["sender"]?.let { userIds.add(it) }
+            }
+            
+            // For now, create mock users with emails based on IDs
+            // In a real app, you'd have a proper users/profiles table
+            return userIds.mapIndexed { index, id ->
+                User(id = id, email = "user${index + 1}@example.com")
+            }.sortedBy { it.email }
+            
+        } catch (e: Exception) {
+            Logger.e(LOGGER_TAG, "Get users error: ", e)
+            return emptyList()
+        }
+    }
+
     class CustomHttpLogger : io.ktor.client.plugins.logging.Logger {
         override fun log(message: String) {
             Logger.d(LOGGER_TAG, message+"\n")

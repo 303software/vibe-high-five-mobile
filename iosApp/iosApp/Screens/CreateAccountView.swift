@@ -125,6 +125,7 @@ struct CreateAccountView: View {
                 } else {
                     iOSApp.rootViewModel.boosts = response ?? []
                     iOSApp.rootViewModel.setStartupState(newState: .complete)
+                    iOSApp.rootViewModel.loadUsers()
                 }
             } catch {
                 isLoading = false
