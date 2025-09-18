@@ -96,6 +96,43 @@ class NetworkClient {
         }.decodeList<Boost>()
     }
 
+    suspend fun getUsers(): List<User> {
+        try {
+            // Get authenticated users from Supabase auth.users table
+            // Note: This requires RLS (Row Level Security) to be properly configured
+            // and the user to have appropriate permissions to read from auth.users
+            val users = supabase.postgrest.from("auth.users").select("id, email") {
+                order("email", Order.ASCENDING)
+            }.decodeList<User>()
+            
+            return users
+            
+        } catch (e: Exception) {
+            Logger.e(LOGGER_TAG, "Get users error: ", e)
+            
+            // Fallback: If auth.users is not accessible, try to get users from a profiles table
+            // This is a common pattern where user profile data is stored separately
+            try {
+                val profiles = supabase.postgrest.from("profiles").select("id, email") {
+                    order("email", Order.ASCENDING)
+                }.decodeList<User>()
+                
+                return profiles
+                
+            } catch (profilesError: Exception) {
+                Logger.e(LOGGER_TAG, "Get profiles error: ", profilesError)
+                
+                // Last fallback: Try to get current session user information
+                val currentUser = supabase.auth.currentUserOrNull()
+                return if (currentUser != null && currentUser.email != null) {
+                    listOf(User(id = currentUser.id, email = currentUser.email!!))
+                } else {
+                    emptyList()
+                }
+            }
+        }
+    }
+
     class CustomHttpLogger : io.ktor.client.plugins.logging.Logger {
         override fun log(message: String) {
             Logger.d(LOGGER_TAG, message+"\n")

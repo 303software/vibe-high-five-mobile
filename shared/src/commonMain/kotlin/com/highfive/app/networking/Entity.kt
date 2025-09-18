@@ -53,3 +53,9 @@ data class Boost(
     @SerialName("sender") val sender: String,
     @SerialName("type") val type: String,
 )
+
+@Serializable
+data class User(
+    @SerialName("id") val id: String,
+    @SerialName("email") val email: String,
+)
