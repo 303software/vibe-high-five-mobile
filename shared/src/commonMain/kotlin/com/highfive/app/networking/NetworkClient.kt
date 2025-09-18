@@ -97,29 +97,39 @@ class NetworkClient {
     }
 
     suspend fun getUsers(): List<User> {
-        // Get users from a custom users table or profiles table
-        // For now, we'll try to get distinct users from the boost table
         try {
-            val boosts = supabase.postgrest.from("boost").select("receiver, sender") {
-                order("created_at", Order.DESCENDING)
-            }.decodeList<Map<String, String>>()
+            // Get authenticated users from Supabase auth.users table
+            // Note: This requires RLS (Row Level Security) to be properly configured
+            // and the user to have appropriate permissions to read from auth.users
+            val users = supabase.postgrest.from("auth.users").select("id, email") {
+                order("email", Order.ASCENDING)
+            }.decodeList<User>()
             
-            // Extract unique user IDs and create mock user objects
-            val userIds = mutableSetOf<String>()
-            boosts.forEach { boost ->
-                boost["receiver"]?.let { userIds.add(it) }
-                boost["sender"]?.let { userIds.add(it) }
-            }
-            
-            // For now, create mock users with emails based on IDs
-            // In a real app, you'd have a proper users/profiles table
-            return userIds.mapIndexed { index, id ->
-                User(id = id, email = "user${index + 1}@example.com")
-            }.sortedBy { it.email }
+            return users
             
         } catch (e: Exception) {
             Logger.e(LOGGER_TAG, "Get users error: ", e)
-            return emptyList()
+            
+            // Fallback: If auth.users is not accessible, try to get users from a profiles table
+            // This is a common pattern where user profile data is stored separately
+            try {
+                val profiles = supabase.postgrest.from("profiles").select("id, email") {
+                    order("email", Order.ASCENDING)
+                }.decodeList<User>()
+                
+                return profiles
+                
+            } catch (profilesError: Exception) {
+                Logger.e(LOGGER_TAG, "Get profiles error: ", profilesError)
+                
+                // Last fallback: Try to get current session user information
+                val currentUser = supabase.auth.currentUserOrNull()
+                return if (currentUser != null && currentUser.email != null) {
+                    listOf(User(id = currentUser.id, email = currentUser.email!!))
+                } else {
+                    emptyList()
+                }
+            }
         }
     }
 
