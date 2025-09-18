@@ -87,7 +87,9 @@ class NetworkClient {
         }.decodeList<Boost>()
     }
 
-    suspend fun addBoost(boost: Boost): List<Boost> {
+    suspend fun addBoost(receiverId: String): List<Boost> {
+        val senderId = supabase.auth.currentSessionOrNull()?.user?.id ?: ""
+        val boost = Boost(receiver = receiverId, sender = senderId, type = "high_five")
         return supabase.postgrest.from("boost").insert(boost) {
             select(Columns.ALL)
             order("created_at", Order.DESCENDING)

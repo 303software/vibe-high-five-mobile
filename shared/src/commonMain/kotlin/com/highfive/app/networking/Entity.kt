@@ -48,5 +48,8 @@ data class RefreshTokenPayload(
 
 @Serializable
 data class Boost(
-    @SerialName("id") val id: String,
+    @SerialName("id") val id: String? = null,
+    @SerialName("receiver") val receiver: String,
+    @SerialName("sender") val sender: String,
+    @SerialName("type") val type: String,
 )
