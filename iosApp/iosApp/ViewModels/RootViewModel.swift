@@ -1,5 +1,6 @@
 import Combine
 import SwiftUI
+import shared
 
 class RootViewModel: ObservableObject {
     enum startupState {

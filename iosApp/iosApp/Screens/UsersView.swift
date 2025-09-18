@@ -1,4 +1,5 @@
 import SwiftUI
+import shared
 
 struct UsersView: View {
     @StateObject var viewModel: RootViewModel = iOSApp.rootViewModel
