@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#621244</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#D50037</color>
+    <color name="teal">#00ada8</color>
+    <color name="maroon">#921b1d</color>
+    <color name="peach">#f36e4e</color>
+    <color name="crimson">#ba323e</color>
+    <color name="drawRed">#D50037</color>
+    <color name="orange">#ee7623</color>
+    <color name="white">#FFFFFF</color>
+    <color name="light_gray">#CCCCCC</color>
+    <color name="dark_gray">#888888</color>
+    <color name="redAccent">#990028</color>
+    <color name="maroonAccent">#71001D</color>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">High Five</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="cannot_connect">Please check your connectivity and try again later.</string>
+</resources>
